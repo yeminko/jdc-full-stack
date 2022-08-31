@@ -2,7 +2,26 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-
-
-	<bean class="com.jdc.hello.MyBean"></bean>
+	
+	<bean id="defaultZoo" class="com.jdc.beans.Zoo"></bean>
+	
+	<bean id="zooWith100Animals" class="com.jdc.beans.ZooFactory" factory-method="zooWithAnimalCount">
+		<constructor-arg value="1000"></constructor-arg>
+	</bean>
+	
+	<bean id="bigZooFactory" class="com.jdc.beans.InstanceZooFactory">
+		<constructor-arg name="bigSize" value="true"></constructor-arg>
+	</bean>
+	
+	<bean id="smallZooFactory" class="com.jdc.beans.InstanceZooFactory">
+		<constructor-arg name="bigSize" value="false"></constructor-arg>
+	</bean>
+	
+	<bean id="smallZoo" factory-bean="smallZooFactory"
+		factory-method="getZoo">
+	</bean>
+	
+	<bean id="bigZoo" factory-bean="bigZooFactory"
+		factory-method="getZoo">
+	</bean>
 </beans>
